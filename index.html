@@ -1,0 +1,88 @@
+
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Test di Reazione</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #222;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+    }
+
+    #banner {
+      max-width: 80%;
+      height: auto;
+      margin-bottom: 30px;
+    }
+
+    #message {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    #timer {
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+
+    #reaction-button {
+      padding: 20px 40px;
+      font-size: 20px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      background-color: #555;
+      color: white;
+    }
+
+    #reaction-button.ready {
+      background-color: #4CAF50;
+    }
+  </style>
+</head>
+<body>
+
+  <img id="banner" src="images/banner.jpg" alt="Banner">
+  <div id="message">Attendi che lo schermo diventi verde, poi clicca!</div>
+  <div id="timer">Timer: ...</div>
+  <button id="reaction-button" disabled>In attesa...</button>
+
+  <script>
+    const button = document.getElementById("reaction-button");
+    const message = document.getElementById("message");
+    const timerDisplay = document.getElementById("timer");
+
+    let redirectURL = "https://your-prelander.com"; // 🔁 Сюда ставь клоаку/Keitaro link
+    let countdown = Math.floor(3 + Math.random() * 3);
+    timerDisplay.textContent = "Timer: " + countdown;
+
+    const countdownInterval = setInterval(() => {
+      countdown--;
+      timerDisplay.textContent = "Timer: " + countdown;
+      if (countdown <= 0) {
+        clearInterval(countdownInterval);
+        button.disabled = false;
+        button.classList.add("ready");
+        button.textContent = "CLICCA ORA!";
+        message.textContent = "Adesso! Clicca il più veloce possibile!";
+        timerDisplay.style.display = "none";
+      }
+    }, 1000);
+
+    button.addEventListener("click", () => {
+      window.location.href = redirectURL;
+    });
+  </script>
+
+</body>
+</html>
